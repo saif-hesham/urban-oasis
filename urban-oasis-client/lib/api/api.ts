@@ -1,9 +1,10 @@
 import { SearchParams } from "@/app/apartments/page";
+import { apiUrl } from "@/environment";
 import {Apartment, ApartmentResponse} from "@/types/apartment-types"
 import { apartmentIdSchema, getApartmentsQuerySchema } from "@/types/zod-schemas";
 
 const PAGE_LIMIT = "12";
-export const BASE_URL = 'http://localhost:4000/apartment-management';
+export const BASE_URL = `${apiUrl}/apartment-management`;
 // Fetch apartments list
 export async function getApartments(searchParams: SearchParams): Promise<ApartmentResponse> {
   //set default page and limit

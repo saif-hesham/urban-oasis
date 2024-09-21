@@ -1,0 +1,53 @@
+
+services:
+  web:
+    depends_on: 
+      - api
+    build:
+      context: ./urban-oasis-client
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - NEXT_PUBLIC_API_URL=http://api:4000
+    develop:
+      watch:
+        - path: ./urban-oasis-client/package.json
+          action: rebuild
+        - path: ./urban-oasis-client/package-lock.json
+          action: rebuild
+        - path: ./urban-oasis-client
+          target: /app
+          action: sync
+
+  api: 
+    depends_on: 
+      - db
+    build: ./urban-oasis-server
+    ports: 
+      - 4000:4000
+    environment: 
+      DATABASE_URL: mongodb://db:27017/urban-oasis
+      NODE_ENV: development
+      UNSPLASH_API_KEY: 508IhxsPkCYwzXASzrtJXrThuz6cm-UShY7wpLSQrpk
+      PORT: 4000
+    develop:
+      watch:
+        - path: ./urban-oasis-server/package.json
+          action: rebuild
+        - path: ./urban-oasis-server/package-lock.json
+          action: rebuild
+        - path: ./urban-oasis-server
+          target: /app
+          action: sync
+    command: sh -c "npm run seed && npm start"
+
+  db:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - urban-oasis:/data/db
+
+volumes:
+  urban-oasis:
