@@ -30,7 +30,7 @@ To get Urban Oasis running locally:
 
 1. Clone this repository
 ```
-git clone https://github.com/yourusername/urban-oasis.git
+git clone https://github.com/saif-hesham/urban-oasis.git
 cd urban-oasis
 ```
 2. Build and start the Docker containers
