@@ -27,7 +27,7 @@ paths:
         - in: query
           name: unitNumber
           schema:
-            type: string
+            type: integer
           description: Filter apartments by exact unit number (optional)
         - in: query
           name: project
@@ -40,18 +40,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                  currentPage:
-                    type: integer
-                  totalPages:
-                    type: integer
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Apartment'
+                $ref: '#/components/schemas/GetApartmentsResponse'
         '422':
           $ref: '#/components/responses/ValidationError'
         '500':
@@ -76,7 +65,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 
-  /apartments/{id}:
+  /apartment-management/apartments/{id}:
     get:
       summary: Find apartment by ID
       parameters:
@@ -84,7 +73,7 @@ paths:
           name: id
           required: true
           schema:
-            type: string
+            type: integer
           description: Apartment ID
       responses:
         '200':
@@ -102,28 +91,94 @@ paths:
 
 components:
   schemas:
+    AddressType:
+      type: object
+      properties:
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+      required:
+        - street
+        - city
+        - state
+        - zipCode
+
     ApartmentInput:
       type: object
       properties:
+        unitNumber:
+          type: integer
         unitName:
           type: string
-        unitNumber:
+        price:
+          type: number
+        listingType:
           type: string
+        description:
+          type: string
+        image:
+          type: string
+        bedrooms:
+          type: integer
+        bathrooms:
+          type: integer
         project:
           type: string
+        amenities:
+          type: array
+          items:
+            type: string
+        sizeInMeterSquared:
+          type: number
+        address:
+          $ref: '#/components/schemas/AddressType'
+      required:
+        - unitNumber
+        - unitName
+        - price
+        - listingType
+        - description
+        - image
+        - bedrooms
+        - bathrooms
+        - project
+        - sizeInMeterSquared
+        - address
+
     Apartment:
       allOf:
         - $ref: '#/components/schemas/ApartmentInput'
         - type: object
           properties:
             _id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
+              type: integer
+          required:
+            - _id
+
+    GetApartmentsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Apartment'
+        count:
+          type: integer
+        totalPages:
+          type: integer
+        currentPage:
+          type: integer
+      required:
+        - data
+        - count
+        - totalPages
+        - currentPage
+
     ErrorResponse:
       type: object
       properties:
