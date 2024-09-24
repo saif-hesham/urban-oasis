@@ -1,10 +1,7 @@
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardFooter } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Bath, BedDouble, DollarSign, Home, MapPin, Maximize, Tag } from "lucide-react"
-import React from "react"
 
 export default function Loading() {
   return (

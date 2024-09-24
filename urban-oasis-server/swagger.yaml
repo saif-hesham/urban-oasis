@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  title: Apartment Management API
+  version: 1.0.0
+  description: API for managing apartments
+
+paths:
+  /apartment-management/apartments:
+    get:
+      summary: Get apartments
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page number for pagination (optional)
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Number of items per page (optional)
+        - in: query
+          name: unitName
+          schema:
+            type: string
+          description: Filter apartments by unit name (case-insensitive regex, optional)
+        - in: query
+          name: unitNumber
+          schema:
+            type: string
+          description: Filter apartments by exact unit number (optional)
+        - in: query
+          name: project
+          schema:
+            type: string
+          description: Filter apartments by project name (case-insensitive regex, optional)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  totalPages:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Apartment'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Create a new apartment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApartmentInput'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apartment'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /apartments/{id}:
+    get:
+      summary: Find apartment by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Apartment ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apartment'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    ApartmentInput:
+      type: object
+      properties:
+        unitName:
+          type: string
+        unitNumber:
+          type: string
+        project:
+          type: string
+    Apartment:
+      allOf:
+        - $ref: '#/components/schemas/ApartmentInput'
+        - type: object
+          properties:
+            _id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        stack:
+          type: string
+  
+  responses:
+    ValidationError:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
