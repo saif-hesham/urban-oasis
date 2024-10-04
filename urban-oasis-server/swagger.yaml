@@ -73,7 +73,7 @@ paths:
           name: id
           required: true
           schema:
-            type: integer
+            type: string
           description: Apartment ID
       responses:
         '200':
@@ -186,7 +186,7 @@ components:
           type: string
         stack:
           type: string
-  
+
   responses:
     ValidationError:
       description: Validation Error
