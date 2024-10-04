@@ -21,7 +21,7 @@ export async function getApartments(searchParams: SearchParams): Promise<Apartme
     .join(". ");
     throw new Error('Invalid query params. ' + message);
   }
-  const response = await fetch(`${BASE_URL}/apartments?${searchParamsString}`);
+  const response = await fetch(`${BASE_URL}/apartments?${searchParamsString}`, {cache: 'no-store'});
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error('Failed to fetch apartments. ' + errorData.message);
