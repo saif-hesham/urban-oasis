@@ -116,10 +116,10 @@ export default async function page({params} :{params: {apartmentId: string}}) {
         </div>
         <CardFooter className='bg-gray-50 px-8 py-4'>
           <div className='w-full flex justify-between items-center'>
-            <Button variant='outline'>Contact Agent</Button>
             <Link href="/apartments">
               <Button><ChevronLeft /> Back to Apartments</Button>
             </Link>
+            <Button variant='outline'>Contact Agent</Button>
           </div>
         </CardFooter>
       </Card>
