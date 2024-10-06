@@ -22,9 +22,10 @@ export type Apartment = {
 };
 
 export type ApartmentWithoutId = Omit<Apartment, "_id">;
+export type PartialApartment = Omit<Apartment, 'amenities' | 'address' | 'description'> & {address: {state: string}};
 
 export type  ApartmentResponse = {
-  data: Apartment[];
+  data: PartialApartment[];
   count: number;
   totalPages: number;
   currentPage: number;

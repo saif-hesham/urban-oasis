@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import Apartment, {
   ApartmentType,
   ApartmentWithId,
+  PartialApartment,
 } from '../models/apartment.model';
 import { GetApartmentsRequest, GetApartmentsResponse } from '../types/types';
 import { ParamsWithId } from './../schemas/apartment-zod-schemas';
@@ -13,7 +14,21 @@ export const getApartments = asyncHandler(async (
   next: NextFunction
 ) => {
   const { page = 1, limit = 10, unitName, unitNumber, project } = req.query;
-  let query = Apartment.find();
+  let query = Apartment.find(
+    {},
+    {
+      unitName: 1,
+      unitNumber: 1,
+      price: 1,
+      sizeInMeterSquared: 1,
+      image: 1,
+      bathrooms: 1,
+      bedrooms: 1,
+      listingType: 1,
+      project: 1,
+      "address.state": 1,
+     }
+  );
 
   if (unitName) {
     query = query.where("unitName").regex(new RegExp(unitName, "i"));

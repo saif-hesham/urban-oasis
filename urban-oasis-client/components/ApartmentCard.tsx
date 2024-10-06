@@ -1,18 +1,18 @@
-import React from "react";
-import { Card, CardContent, CardFooter } from "./ui/card";
-import { Apartment } from "@/types/apartment-types";
-import Image from "next/image";
-import { Bath, BedDouble, Maximize } from "lucide-react";
-import { Badge } from "./ui/badge";
-import Link from "next/link";
+import { PartialApartment } from '@/types/apartment-types';
+import { Bath, BedDouble, Maximize } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Badge } from './ui/badge';
+import { Card, CardContent, CardFooter } from './ui/card';
 
-export default function ApartmentCard({ apartment }: { apartment: Apartment }) {
+export default function ApartmentCard({
+  apartment,
+}: {
+  apartment: PartialApartment;
+}) {
   return (
     <Link href={`/apartments/${apartment._id}`}>
-      <Card
-
-        className='overflow-hidden group relative cursor-pointer transition-transform duration-300 hover:scale-105'
-      >
+      <Card className='overflow-hidden group relative cursor-pointer transition-transform duration-300 hover:scale-105'>
         <div className='relative flex h-72'>
           <Image
             fill
@@ -29,7 +29,7 @@ export default function ApartmentCard({ apartment }: { apartment: Apartment }) {
                 <Bath className='mr-1 h-4 w-4' /> {apartment.bathrooms}
               </span>
               <span className='flex items-center'>
-                <Maximize className='mr-1 h-4 w-4' />{" "}
+                <Maximize className='mr-1 h-4 w-4' />{' '}
                 {apartment.sizeInMeterSquared} m²
               </span>
             </div>
@@ -50,7 +50,7 @@ export default function ApartmentCard({ apartment }: { apartment: Apartment }) {
         <CardFooter className='px-4 py-3 bg-gray-50'>
           <p className='text-2xl font-bold text-blue-600'>
             ${apartment.price.toLocaleString()}
-            {apartment.listingType === "Rent" ? "/mo" : ""}
+            {apartment.listingType === 'Rent' ? '/mo' : ''}
           </p>
         </CardFooter>
       </Card>

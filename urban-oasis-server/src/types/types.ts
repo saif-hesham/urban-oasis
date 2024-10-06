@@ -1,5 +1,5 @@
 import { AnyZodObject } from "zod";
-import { ApartmentType } from "../models/apartment.model";
+import { PartialApartment } from "../models/apartment.model";
 
 export type GetApartmentsRequest = {
   page?: number;
@@ -11,7 +11,7 @@ export type GetApartmentsRequest = {
 
 
 export type GetApartmentsResponse = {
-  data: ApartmentType[];
+  data: PartialApartment[];
   count: number;
   totalPages: number;
   currentPage: number;
