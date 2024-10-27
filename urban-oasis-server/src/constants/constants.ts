@@ -65,4 +65,7 @@ export default class Constants {
   //Env Enums
   static NODE_ENVS = ["development", "production", "test"] as const;
   static APARTMENT_COUNT = 30;
+
+  //Project Constants
+  static NOT_FOUND_ERROR = "NotFoundError" as const;
 }

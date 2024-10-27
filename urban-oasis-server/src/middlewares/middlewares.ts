@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import { ErrorResponse } from "../types/types";
 import { RequestValidators } from "./../types/types";
+import Constants from "./../constants/constants";
 
 export function validateRequest({
   bodySchema,
@@ -32,17 +33,20 @@ export function errorHandler(
   res: Response<ErrorResponse>,
   next: NextFunction
 ) {
-  let message = "";
+  let statusCode = res.statusCode !== 200 ? res.statusCode : 500;
+  let message = err.message;
+
   if (err instanceof ZodError) {
+    statusCode = 422;
     message = err.errors
       .map(error => `${error.message} in ${error.path[0]}`)
       .join(". ");
-    res.status(422);
+  } else if (err.name === Constants.NOT_FOUND_ERROR) {
+    statusCode = 404;
   }
-  const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
-  res.status(statusCode);
-  res.json({
-    message: message || err.message,
+
+  res.status(statusCode).json({
+    message,
     stack: process.env.NODE_ENV === "production" ? "🔥" : err.stack,
   });
 }

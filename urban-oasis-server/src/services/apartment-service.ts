@@ -1,3 +1,4 @@
+import Constants from './../constants/constants';
 import Apartment, { ApartmentType } from '../models/apartment.model';
 
 export const getApartments = async (query: any) => {
@@ -44,7 +45,9 @@ export const getApartments = async (query: any) => {
 export const findApartmentById = async (id: string) => {
   const apartment = await Apartment.findById(id);
   if (!apartment) {
-    throw new Error(`Apartment with id ${id} was not found`);
+    const error =  new Error(`Apartment with id ${id} was not found`);
+    error.name = Constants.NOT_FOUND_ERROR;
+    throw error;
   }
   return apartment;
 };
