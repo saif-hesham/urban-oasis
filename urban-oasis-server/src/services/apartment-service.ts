@@ -1,7 +1,8 @@
+import Apartment, { ApartmentType } from '../models/apartment-model';
+import { GetApartmentsRequest } from '../types/types';
 import Constants from './../constants/constants';
-import Apartment, { ApartmentType } from '../models/apartment.model';
 
-export const getApartments = async (query: any) => {
+export const getApartments = async (query: GetApartmentsRequest) => {
   const { page = 1, limit = 10, unitName, unitNumber, project } = query;
   let dbQuery = Apartment.find(
     {},
@@ -45,7 +46,7 @@ export const getApartments = async (query: any) => {
 export const findApartmentById = async (id: string) => {
   const apartment = await Apartment.findById(id);
   if (!apartment) {
-    const error =  new Error(`Apartment with id ${id} was not found`);
+    const error = new Error(`Apartment with id ${id} was not found`);
     error.name = Constants.NOT_FOUND_ERROR;
     throw error;
   }

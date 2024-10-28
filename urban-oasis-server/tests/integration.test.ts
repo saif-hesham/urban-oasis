@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import request from "supertest";
 import mockApartment from "../src/constants/mock-data";
 import app from "../src/index";
-import Apartment from "../src/models/apartment.model";
+import Apartment from "../src/models/apartment-model";
 
 let apartmentId: string;
 
@@ -12,6 +12,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
+  if (mongoose.connection.db) await mongoose.connection.db.dropDatabase();
   await mongoose.connection.close();
 });
 

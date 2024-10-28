@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
+import { ApartmentType, ApartmentWithId } from '../models/apartment-model';
+import { ParamsWithId } from '../schemas/zod/apartment-zod-schemas';
 import { createApartment, findApartmentById, getApartments } from '../services/apartment-service';
 import { GetApartmentsRequest, GetApartmentsResponse } from '../types/types';
-import { ApartmentType, ApartmentWithId } from './../models/apartment.model';
-import { ParamsWithId } from './../schemas/apartment-zod-schemas';
 import asyncHandler from './../utils/utils';
 
 export const getApartmentsController = asyncHandler(async (

@@ -1,12 +1,11 @@
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-import swaggerUi from 'swagger-ui-express';
-import swaggerSpecs from './config/swagger';
-import apartmentRouter from './routers/apartment-routers';
-import { errorHandler, notFound } from './middlewares/middlewares';
-import YAML from 'yamljs';
 import path from 'path';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
+import { errorHandler, notFound } from './middlewares/middlewares';
+import apartmentRouter from './routers/apartment-routers';
 
 const app = express();
 
