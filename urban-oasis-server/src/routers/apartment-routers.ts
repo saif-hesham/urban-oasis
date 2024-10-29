@@ -1,8 +1,11 @@
 import { Router } from 'express';
 import { validateRequest } from '../middlewares/middlewares';
 
-
-import { apartmentSchema, getApartmentsQuerySchema, paramsWithIdSchema } from '../schemas/zod/apartment-zod-schemas';
+import {
+  apartmentSchema,
+  getApartmentsQuerySchema,
+  paramsWithIdSchema,
+} from '../middlewares/validators/apartment-zod-schemas';
 import {
   createApartmentController,
   findApartmentByIdController,
