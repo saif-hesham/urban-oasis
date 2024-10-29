@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import HttpStatusCodes from "http-status-codes";
 import { ApartmentType, ApartmentWithId } from '../models/apartment-model';
 import { ParamsWithId } from '../middlewares/validators/apartment-zod-schemas';
 import {
@@ -16,14 +17,14 @@ export const getApartmentsController = asyncHandler(
     next: NextFunction
   ) => {
     const apartments = await getApartments(req.query);
-    res.status(200).json(apartments);
+    res.status(HttpStatusCodes.OK).json(apartments);
   }
 );
 
 export const findApartmentByIdController = asyncHandler(
   async (req: Request<ParamsWithId>, res: Response, next: NextFunction) => {
     const apartment = await findApartmentById(req.params.id);
-    res.status(200).json(apartment);
+    res.status(HttpStatusCodes.OK).json(apartment);
   }
 );
 
@@ -34,6 +35,6 @@ export const createApartmentController = asyncHandler(
     next: NextFunction
   ) => {
     const apartment = await createApartment(req.body);
-    res.status(201).json(apartment);
+    res.status(HttpStatusCodes.CREATED).json(apartment);
   }
 );
