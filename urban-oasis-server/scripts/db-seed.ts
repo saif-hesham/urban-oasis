@@ -1,4 +1,4 @@
-import Apartment, { ApartmentType } from "../src/models/apartment.model";
+import Apartment, { ApartmentType } from "../src/models/apartment-model";
 import Constants from "../src/constants/constants";
 import mongoose from "mongoose";
 import env from "../src/config/config";
