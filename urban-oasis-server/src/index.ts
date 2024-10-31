@@ -6,6 +6,7 @@ import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 import { errorHandler, notFound } from './middlewares/middlewares';
 import apartmentRouter from './routers/apartment-routers';
+import userRouter from './routers/user-routers';
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/apartment-management', apartmentRouter);
+app.use('/users', userRouter);
 
 // Load Swagger document
 const swaggerDocument = YAML.load(path.join(__dirname, '../swagger.yaml'));

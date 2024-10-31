@@ -1,5 +1,5 @@
-import { AnyZodObject } from "zod";
-import { PartialApartment } from "../models/apartment.model";
+import { AnyZodObject, ZodEffects } from "zod";
+import { PartialApartment } from "../models/apartment-model";
 
 export type GetApartmentsRequest = {
   page?: number;
@@ -23,7 +23,7 @@ export type ErrorResponse = {
 };
 
 export type RequestValidators = {
-  bodySchema?: AnyZodObject;
+  bodySchema?: AnyZodObject | ZodEffects<any>;
   querySchema?: AnyZodObject;
   paramsSchema?: AnyZodObject;
 };

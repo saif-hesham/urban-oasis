@@ -5,14 +5,10 @@ import { ErrorResponse } from "../types/types";
 import Constants from "./../constants/constants";
 import { RequestValidators } from "./../types/types";
 
-export function validateRequest({
-  bodySchema,
-  querySchema,
-  paramsSchema,
-}: RequestValidators) {
+export function validateRequest({bodySchema, querySchema, paramsSchema}: RequestValidators) {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      if (bodySchema) bodySchema.parse(req.body);
+      if (bodySchema) req.body = bodySchema.parse(req.body);
       if (querySchema) querySchema.parse(req.query);
       if (paramsSchema) paramsSchema.parse(req.params);
       next();
@@ -48,6 +44,6 @@ export function errorHandler(
 
   res.status(statusCode).json({
     message,
-    stack: process.env.NODE_ENV === "production" ? "🔥" : err.stack,
+    stack: process.env.NODE_ENV === Constants.PRODUCTION_ENV ? "🔥" : err.stack,
   });
 }
