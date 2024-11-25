@@ -31,6 +31,7 @@ export const getApartments = async (query: any) => {
   const totalPages = Math.ceil(totalDocuments / limit);
   
   const skipCount = (page - 1) * limit;
+  //:TODO: implement throwing an error when skip count is greater than total documents
   dbQuery = dbQuery.skip(skipCount).limit(limit);
   const apartments = await dbQuery;
 
