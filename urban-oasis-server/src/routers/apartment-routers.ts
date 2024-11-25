@@ -5,7 +5,7 @@ import {
   apartmentSchema,
   getApartmentsQuerySchema,
   paramsWithIdSchema,
-} from '../schemas/apartment-zod-schemas';
+} from '../middlewares/validators/apartment-zod-schemas';
 import {
   createApartmentController,
   findApartmentByIdController,

@@ -17,7 +17,7 @@ const apartmentSchema = z.object({
   bedrooms: z.number().int().positive(),
   bathrooms: z.number().int().positive(),
   project: z.string().min(1),
-  amenities: z.array(z.string()).optional(),
+  amenities: z.array(z.string()).optional().nullable(),
   sizeInMeterSquared: z.number().positive(),
   address: addressSchema,
 });
