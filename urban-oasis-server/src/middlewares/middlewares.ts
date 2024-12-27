@@ -31,7 +31,7 @@ export function errorHandler(
   next: NextFunction
 ) {
   let statusCode = res.statusCode !== HttpStatusCodes.OK ? res.statusCode : HttpStatusCodes.INTERNAL_SERVER_ERROR;
-  let message = err.message;
+  let message = err.message || "An unexpected error occurred.";
 
   if (err instanceof ZodError) {
     statusCode = HttpStatusCodes.UNPROCESSABLE_ENTITY;
