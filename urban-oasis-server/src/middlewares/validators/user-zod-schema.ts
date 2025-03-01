@@ -6,8 +6,11 @@ export const userZodSchema = z
     password: z.string().min(8),
     confirmPassword: z.string().min(8),
   })
-  .refine(data => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ['confirmPassword'],
-  })
+  .refine(
+    data => data.password === data.confirmPassword,
+    {
+      message: "Passwords don't match",
+      path: ['confirmPassword'],
+    }
+  )
   .transform(({ confirmPassword, ...rest }) => rest);
