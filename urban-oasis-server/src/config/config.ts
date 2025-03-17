@@ -9,8 +9,8 @@ const envSchema = z.object({
   PORT: z.coerce.number().default(8000),
   DATABASE_URL: z.string().url(),
   UNSPLASH_API_KEY: z.string().min(1, "UNSPLASH_API_KEY is required"),
-  ACCESS_TOKEN: z.string().length(128, "ACCESS_TOKEN must be exactly 128 characters long"),
-  REFRESH_TOKEN: z.string().length(128, "REFRESH_TOKEN must be exactly 128 characters long"),
+  ACCESS_TOKEN_SECRET: z.string().length(128, "ACCESS_TOKEN must be exactly 128 characters long"),
+  REFRESH_TOKEN_SECRET: z.string().length(128, "REFRESH_TOKEN must be exactly 128 characters long"),
 });
 
 type EnvConfig = z.infer<typeof envSchema>;
